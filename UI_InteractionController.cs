@@ -5,9 +5,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem;
 using UnityEngine.Events;
 using System;
+using UnityEngine.SceneManagement;
 
 public class UI_InteractionController : MonoBehaviour
 {
+    //gameobject refs for base and controllers
     [SerializeField]
     GameObject UIController;
 
@@ -17,7 +19,8 @@ public class UI_InteractionController : MonoBehaviour
     [SerializeField]
     InputActionReference inputActionReference_UISwitcher;
 
-    bool isUICanvasActive = false;
+    //******************this was false so see what happens**********************************
+    bool isUICanvasActive = true;
 
     [SerializeField]
     GameObject UICanvasGameobject;
@@ -25,7 +28,7 @@ public class UI_InteractionController : MonoBehaviour
     [SerializeField]
     Vector3 positionOffsetForUICanvasGameobject;
 
-   
+    //Deactivating / activating UI Canvas at start and game time
 
     private void OnEnable()
     {
@@ -65,7 +68,7 @@ public class UI_InteractionController : MonoBehaviour
             //Deactivating Base Controller by disabling its XR Direct Interactor
             BaseController.GetComponent<XRDirectInteractor>().enabled = false;
 
-            //Adjusting the transform of the UI Canvas Gameobject according to the VR Player transform
+            //Adjusting the transform/position of the UI Canvas Gameobject according to the VR Player transform
             Vector3 positionVec = new Vector3(UIController.transform.position.x, positionOffsetForUICanvasGameobject.y, UIController.transform.position.z);
             Vector3 directionVec = UIController.transform.forward;
             directionVec.y = 0f;
